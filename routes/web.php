@@ -24,7 +24,7 @@ Route::get('alert/{type}', function ($type) {
 })->name('alert');
 
 Route::get('crud/{type}', function ($type) {
-	flash()->$type("Great! Your model has been {$type} successfully.");
+	flash()->$type("Great! This is a {$type} message");
 
 	return back();
 })->name('crud');
@@ -33,21 +33,21 @@ Route::get('dismissible', function () {
 	$dismissible = config('flash.dismissible');
 
 	if ($dismissible) {
-		flash()->success('All alerts are dismissible, and this one is too')->dismissible();
+		flash()->warning('All alerts are dismissible, and this one is too');
 	} else {
-		flash()->success('All alerts are static, but this one is dismissible')->dismissible();
+		flash()->warning('All alerts are static, but this one is dismissible')->dismissible(true);
 	}
 
 	return back();
 })->name('dismissible');
 
 Route::get('static', function () {
-	$dismissible = config('flash.dismissible');
+	$isStatic = !config('flash.dismissible');
 
-	if ($dismissible) {
-		flash()->success('All alerts are dismissible, but this one is static')->dismissible(false);
+	if ($isStatic) {
+		flash()->error('All alerts are static, and this one is too');
 	} else {
-		flash()->success('All alerts are static, and this one is too')->dismissible(false);
+		flash()->error('All alerts are dismissible, but this one is static')->dismissible(false);
 	}
 
 	return back();
