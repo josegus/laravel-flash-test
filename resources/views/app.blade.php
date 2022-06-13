@@ -42,7 +42,8 @@
                 <h4>This flash message is render using the blade component</h4>
                 <x-flash::message/>
             @else
-                @include('flash::message')
+                {{-- @include('flash::message') --}}
+                <x-flash::message />
             @endif
 
             @yield('content')
